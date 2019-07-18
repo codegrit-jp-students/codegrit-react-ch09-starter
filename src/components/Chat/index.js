@@ -64,7 +64,7 @@ export default class extends Component {
       fetchMore: this.fetchMoreConversations
     }
     return (
-      <ConversationList {...conversationListProps} />
+      <ConversationList {...conversationListProps} className='test' />
     );
   }
 }

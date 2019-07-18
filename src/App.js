@@ -8,19 +8,22 @@ function App() {
   // 分かりやすいように'margin: 50px'を適用しています。
   return (
     <div className="App" style={{ margin: 50 }}>
-      <Auth>
-        {(authProps) => {
-          if (authProps.isLoggedIn) {
-            const { me, logout } = authProps;
+      <Auth >
+        {({
+          isLoggedIn,
+          login,
+          logout,
+          me
+        }) => {
+          if (isLoggedIn) {
             return (
               <>
-                <LogoutLink me={me} logout={logout} />
+                <LogoutLink logout={logout} me={me}/>
                 <Chat />
               </>
-            );
-          } else {
-            return <LoginPage login={authProps.login} />
+            )
           }
+          return <LoginPage login={login}/>
         }}
       </Auth>
     </div>
