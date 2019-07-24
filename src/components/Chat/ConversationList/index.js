@@ -105,10 +105,9 @@ export default class extends Component {
       (ヒント2: DOMエレメントの高さなどいくつかの情報が必要です。)
     */
     const maxHeight = e.srcElement.clientHeight
-    if (e.srcElement.scrollHeight - e.srcElement.scrollTop === maxHeight ){
+    if (e.srcElement.scrollHeight - e.srcElement.scrollTop === maxHeight && this.props.hasNextPage) {
       this.props.fetchMore()
     }
-    
   }
 
   render() {

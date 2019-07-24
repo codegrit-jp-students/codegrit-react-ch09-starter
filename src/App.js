@@ -23,7 +23,7 @@ function App() {
               </>
             )
           }
-          return <LoginPage login={login}/>
+          return <LoginPage login={login} />
         }}
       </Auth>
     </div>

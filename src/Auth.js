@@ -5,24 +5,41 @@ class Auth extends Component {
     me: JSON.parse(localStorage.getItem('me')),
     isLoggedIn: localStorage.getItem('isLoggedIn')
   }
-  login = (e = null) => {
+  login = (e = null)  => {
     /* 
       アップデートして、メールアドレスがtest@test.com、
       パスワードがpasswordの時のみログインに成功するように
       してください。
     */
-    if (e) e.preventDefault()
     const me = {
-      email: "test@test.com",
+      //email: e.email,
       authToken: 'test',
       name: "テストユーザー",
-      username: "testuser"
+      username: "testuser",
     }
     localStorage.setItem('me', JSON.stringify(me))
     this.setState({ 
       me, 
       isLoggedIn: true 
     });
+    return new Promise((resolve, reject) => {
+      console.log(e)
+      // const randomNum = Math.floor(Math.random() * 10)
+      if (me.email === "test@test.com" && e.password === "password") {
+        resolve({
+          success: true,
+          message: '登録に成功しました。'
+        })
+      } else {
+        reject({
+          success: false,
+          message: 'メールアドレスもしくはパスワードが違います'
+        })
+      }
+    })
+
+    //if (e) e.preventDefault()
+    
   }
   logout = (e = null) => {
     if (e) e.preventDefault()
