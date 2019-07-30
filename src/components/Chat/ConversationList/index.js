@@ -9,7 +9,7 @@ import ConversationListItem from '../ConversationListItem';
 import { ReactComponent as Loader } from '../../../images/loading.svg';
 
 const ConversationListWrapper = styled.ul({
-  "height": "360px",
+  "height": "300px",
   "width": "360px",
   "overflowY": "scroll",
   "display": "flex",
@@ -104,7 +104,10 @@ export default class extends Component {
       (ヒント1: hasNextPageとloadingMoreを使います。)
       (ヒント2: DOMエレメントの高さなどいくつかの情報が必要です。)
     */
-
+    const maxHeight = e.srcElement.clientHeight
+    if (e.srcElement.scrollHeight - e.srcElement.scrollTop === maxHeight && this.props.hasNextPage) {
+      this.props.fetchMore()
+    }
   }
 
   render() {
