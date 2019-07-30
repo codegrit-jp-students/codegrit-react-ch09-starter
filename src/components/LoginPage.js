@@ -75,6 +75,7 @@ export default class extends Component {
         actions.setSubmitting(false);
         alert(error.message)
         actions.setErrors(errors)
+        
       })
     }
     return (

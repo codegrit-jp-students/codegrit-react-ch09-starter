@@ -5,32 +5,33 @@ class Auth extends Component {
     me: JSON.parse(localStorage.getItem('me')),
     isLoggedIn: localStorage.getItem('isLoggedIn')
   }
-  login = (e = null)  => {
+  
+  login = (params)  => {
     /* 
       アップデートして、メールアドレスがtest@test.com、
       パスワードがpasswordの時のみログインに成功するように
       してください。
     */
     const me = {
-      //email: e.email,
+      email: params.email,
       authToken: 'test',
       name: "テストユーザー",
       username: "testuser",
     }
-    localStorage.setItem('me', JSON.stringify(me))
-    this.setState({ 
-      me, 
-      isLoggedIn: true 
-    });
     return new Promise((resolve, reject) => {
-      console.log(e)
-      // const randomNum = Math.floor(Math.random() * 10)
-      if (me.email === "test@test.com" && e.password === "password") {
+      if (params.email === "test@test.com" && params.password === "password") {
+        localStorage.setItem('me', JSON.stringify(me))
+        localStorage.setItem('isLoggedIn', true)
+        this.setState({ 
+          me,
+          isLoggedIn: true 
+        })
         resolve({
           success: true,
-          message: '登録に成功しました。'
+          message: 'ログインに成功しました。'
         })
       } else {
+        this.setState({ isLoggedIn: false })
         reject({
           success: false,
           message: 'メールアドレスもしくはパスワードが違います'
@@ -38,12 +39,12 @@ class Auth extends Component {
       }
     })
 
-    //if (e) e.preventDefault()
-    
   }
   logout = (e = null) => {
     if (e) e.preventDefault()
     localStorage.removeItem('me')
+    localStorage.removeItem('isLoggedIn')
+
     this.setState({
       me: null, 
       isLoggedIn: false
@@ -59,6 +60,7 @@ class Auth extends Component {
       logout: this.logout,
       ...this.state
     }
+    //console.log(this.state.isLoggedIn)
     return this.props.children(handleProps)
   }
 }
